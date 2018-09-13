@@ -1,7 +1,7 @@
 Pyfaast
 ======
 
-This is a python client for the `faa.st <http://faa.st>`_ API.
+This is a python client for the `Faa.st <http://faa.st>`_ API.
 
 Please see the example.py for more information on how to use.
 
@@ -61,7 +61,7 @@ Response:
 
 ```
 
-## Trading
+## Trading 
 #### Create a Swap
 ```PYTHON
 swapObj = faastObj.create_a_swap(swap_pair = "BTC_ETH",
