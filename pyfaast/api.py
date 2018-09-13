@@ -56,7 +56,7 @@ class Faast(object):
 
 
 
-    def get_pair_price(self, pair = "BTC_ETH", url = "/api/v2/public/price/"):
+    def get_pair_price(self, pair = constants.DEBUG_VARIABLES.get("swap_pair", ""), url = "/api/v2/public/price/"):
         if not url.endswith("/"):
             url = url + "/" + pair
         else:
@@ -66,9 +66,7 @@ class Faast(object):
 
 
     def _pair_split(self, pair):
-        deposit_currency, withdrawal_currency = pair.split("_")
-        print (deposit_currency, withdrawal_currency)
-        return deposit_currency, withdrawal_currency
+        return pair.split("_")
 
 
     def create_a_swap(self,
@@ -78,18 +76,28 @@ class Faast(object):
                       deposit_amount = 0,
                       user_id = "",
                       affiliate_margin = 5,
-                      affiliate_payment_address = "1fs4Vz12WGBgPe6LmE2TDnGeuAjFhws6k",
+                      affiliate_payment_address = constants.DEBUG_VARIABLES.get("BTC_address", ""),
                       url = "/api/v2/public/swap",
                       debug = False):
         '''
         Returns:
-            {"swap_id":"e8555143-124e-4103-8c61-7394b7203622","created_at":"2018-09-13T08:22:06.710Z","user_id":"","deposit_address":"3FozwEKNCxCxQ2H1drh3P9WdEvPFcbGZAj","deposit_currency":"BTC","withdrawal_address":"0x08d62881d04f62a02ee80f45abf454f418c60e99","withdrawal_currency":"ETH","refund_address":"0x08d62881d04f62a02ee80f45abf454f418c60e99","affiliate_margin":5,"affiliate_payment_address":"1fs4Vz12WGBgPe6LmE2TDnGeuAjFhws6k","status":"awaiting deposit"}'
+            {"swap_id":"e8555143-124e-4103-8c61-7394b7203622",
+            "created_at":"2018-09-13T08:22:06.710Z",
+            "user_id":"",
+            "deposit_address":"3FozwEKNCxCxQ2H1drh3P9WdEvPFcbGZAj",
+            "deposit_currency":"BTC",
+            "withdrawal_address":"0x08d62881d04f62a02ee80f45abf454f418c60e99",
+            "withdrawal_currency":"ETH",
+            "refund_address":"0x08d62881d04f62a02ee80f45abf454f418c60e99",
+            "affiliate_margin":5,
+            "affiliate_payment_address":"1fs4Vz12WGBgPe6LmE2TDnGeuAjFhws6k",
+            "status":"awaiting deposit"}'
         '''
 
         if debug:
-            withdrawal_address = "0x08d62881d04f62a02ee80f45abf454f418c60e99"
-            swap_pair = "BTC_ETH"
-            refund_address = "0x08d62881d04f62a02ee80f45abf454f418c60e99"
+            withdrawal_address = constants.DEBUG_VARIABLES.get("ETH_address", "")
+            swap_pair = constants.DEBUG_VARIABLES.get("swap_pair", "")
+            refund_address = constants.DEBUG_VARIABLES.get("ETH_address", "")
 
         if withdrawal_address is None:
             raise errors.RequestError("withdrawal_address missing.")
@@ -116,8 +124,32 @@ class Faast(object):
         req = self._request("post", url, data=data, debug=debug)
 
         if debug:
-            print (req)
+            print ("create_a_swap response: %s " %req)
+
         return req
+
+
+
+    def fetch_swap(self, swap_id, url = "/api/v2/public/swaps/refresh", debug = False):
+        '''
+        Does not work yet.
+        '''
+        if swap_id is None:
+            raise errors.RequestError("swap_id is missing")
+
+        data = {}
+        data["swap_id"] = swap_id
+
+        if debug:
+            print ("Post Arg: %s" %data )
+
+        req = self._request("post", url, data=data, debug=debug)
+
+        if debug:
+            print("fetch_swap response: %s" %req)
+
+        return req
+
 
 
     def get_supported_currencies(self, url = "/api/v2/public/currencies"):

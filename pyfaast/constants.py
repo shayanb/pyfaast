@@ -14,6 +14,11 @@ HEADERS = {
 }
 
 
+DEBUG_VARIABLES = {
+     "ETH_address" : "0x08d62881d04f62a02ee80f45abf454f418c60e99",
+     "BTC_address" : "1fs4Vz12WGBgPe6LmE2TDnGeuAjFhws6k",
+     "swap_pair" : "BTC_ETH"
+}
 
 
 
