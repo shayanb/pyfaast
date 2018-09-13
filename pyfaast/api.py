@@ -54,9 +54,10 @@ class Faast(object):
             return {}
         return result.json()
 
+    def get_pair_price(self,
+                       pair = constants.DEBUG_VARIABLES.get("swap_pair", ""),
+                       url = "/api/v2/public/price/"):
 
-
-    def get_pair_price(self, pair = constants.DEBUG_VARIABLES.get("swap_pair", ""), url = "/api/v2/public/price/"):
         if not url.endswith("/"):
             url = url + "/" + pair
         else:
@@ -64,10 +65,8 @@ class Faast(object):
         print (url)
         return self._request("GET", url, debug = True)
 
-
     def _pair_split(self, pair):
         return pair.split("_")
-
 
     def create_a_swap(self,
                       swap_pair = None,
@@ -128,18 +127,34 @@ class Faast(object):
 
         return req
 
-
-
-    def fetch_swap(self, swap_id, url = "/api/v2/public/swaps/refresh", debug = False):
+    def fetch_swap(self,
+                   swap_id,
+                   url = "/api/v2/public/swaps/",
+                   debug = False):
         '''
-        Does not work yet.
+        Returns:
+            {'affiliate_margin': 5,
+             'affiliate_payment_address': '1fs4Vz12WGBgPe6LmE2TDnGeuAjFhws6k',
+             'created_at': '2018-09-13T23:20:02.169Z',
+             'deposit_address': '2N44At9pemAX3mXwXV86fdXsPRaoKYt5jqS',
+             'deposit_currency': 'BTC',
+             'refund_address': '0x08d62881d04f62a02ee80f45abf454f418c60e99',
+             'status': 'awaiting deposit',
+             'swap_id': '8ba45a6b-fcda-4ff5-9821-d8d1edfe494d',
+             'updated_at': '2018-09-13T23:20:03.124Z',
+             'user_id': '',
+             'withdrawal_address': '0x08d62881d04f62a02ee80f45abf454f418c60e99',
+             'withdrawal_currency': 'ETH'}
+
         '''
         if swap_id is None:
             raise errors.RequestError("swap_id is missing")
 
+
         data = {}
         data["swap_id"] = swap_id
 
+        url = url + swap_id + "/refresh"
         if debug:
             print ("Post Arg: %s" %data )
 
@@ -150,11 +165,8 @@ class Faast(object):
 
         return req
 
-
-
     def get_supported_currencies(self, url = "/api/v2/public/currencies"):
         return self._request("GET", url)
-
 
     def _get(self, url):
         return self._request("get", url)

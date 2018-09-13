@@ -23,7 +23,7 @@ swapObj = faastObj.create_a_swap(debug=True)
 pprint (swapObj)
 
 
-#pprint (faastObj.fetch_swap(swap_id=swapObj.get("swap_id"), debug = True))
+pprint (faastObj.fetch_swap(swap_id=swapObj.get("swap_id"), debug = True))
 
 
 
