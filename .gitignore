@@ -1,0 +1,14 @@
+*.pyc
+build/
+dist/
+*.egg-info
+pyfaast/tests/test.ini
+.coverage
+.idea/misc.xml
+.idea/modules.xml
+.idea/pyfaast-master.iml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/*.*
+
+pyfaast/.eggs/*
