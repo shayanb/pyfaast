@@ -1,9 +1,11 @@
 Pyfaast
 ======
 
-This is a python client for the `Faa.st <http://faa.st>`_ API.
+This is a python client for `Faa.st <http://faa.st>`_ API.
 
-Please see the example.py for more information on how to use.
+API Documentaion: [api.faa.st](https://api.faa.st)
+
+Please see the `example.py` for more information on how to use.
 
 #### Installation
 ```BASH
@@ -30,16 +32,16 @@ Response:
 ```JSON
 [
 ...,
-{'cmcID': 'ethereum',
- 'decimals': 18,
- 'deposit': True,
- 'iconUrl': 'https://testapi.faa.st/api/v1/public/static/img/coins/icon_ETH.png',
- 'infoUrl': 'https://ethereum.org',
- 'name': 'Ethereum',
- 'receive': True,
- 'symbol': 'ETH',
- 'walletUrl': 'https://faa.st'}
-,...
+{"cmcID": "ethereum",
+ "decimals": 18,
+ "deposit": True,
+ "iconUrl": "https://testapi.faa.st/api/v1/public/static/img/coins/icon_ETH.png",
+ "infoUrl": "https://ethereum.org",
+ "name": "Ethereum",
+ "receive": True,
+ "symbol": "ETH",
+ "walletUrl": "https://faa.st"},
+...
 ]
 # Number of supported tokens (pairs):     391 # Sep 13 2018
 ```
@@ -78,22 +80,24 @@ Only swap_pair and withdrawal_address are mandatory
 Response:
 
 ```JSON
-{'affiliate_margin': 5,
- 'affiliate_payment_address': '1fs4Vz12WGBgPe6LmE2TDnGeuAjFhws6k',
- 'created_at': '2018-09-13T08:27:19.865Z',
- 'deposit_address': '2N44At9pemAX3mXwXV86fdXsPRaoKYt5jqS',
- 'deposit_currency': 'BTC',
- 'refund_address': '0x08d62881d04f62a02ee80f45abf454f418c60e99',
- 'status': 'awaiting deposit',
- 'swap_id': 'df53cda2-ac44-4ed9-9439-1b7586bb3879',
- 'user_id': '',
- 'withdrawal_address': '0x08d62881d04f62a02ee80f45abf454f418c60e99',
- 'withdrawal_currency': 'ETH'}
+{"affiliate_margin": 5,
+ "affiliate_payment_address": "1fs4Vz12WGBgPe6LmE2TDnGeuAjFhws6k",
+ "created_at": "2018-09-13T08:27:19.865Z",
+ "deposit_address": "2N44At9pemAX3mXwXV86fdXsPRaoKYt5jqS",
+ "deposit_currency": "BTC",
+ "refund_address": "0x08d62881d04f62a02ee80f45abf454f418c60e99",
+ "status": "awaiting deposit",
+ "swap_id": "df53cda2-ac44-4ed9-9439-1b7586bb3879",
+ "user_id": "",
+ "withdrawal_address": "0x08d62881d04f62a02ee80f45abf454f418c60e99",
+ "withdrawal_currency": "ETH"}
 
 ```
 
 ## TODO:
-- implement function for `QUERY SWAPS BY WITHDRAWAL_ADDRESS OR USER_ID`
+- implement:
+    - `QUERY SWAPS BY WITHDRAWAL_ADDRESS OR USER_ID`
+    - `FETCH/REFRESH A SWAP`
 
 
 
